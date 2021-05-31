@@ -67,7 +67,7 @@
 import Alert from './Alert.vue';
 
 export default {
-  name: 'Login',
+  name: 'Singup',
   data() {
     return {
       firstName: '',
@@ -79,6 +79,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      console.log('handiign first');
       // set the values to local Storage
       localStorage.setItem('firstName', this.firstName);
       localStorage.setItem('lastName', this.lastName);
@@ -88,6 +89,7 @@ export default {
       this.lastName = '';
       this.userName = '';
       // now redirect to second signup page
+      console.log('redirecting');
       this.$router.push({ name: 'Signup2' });
     },
   },
@@ -96,3 +98,9 @@ export default {
   },
 };
 </script>
+<style >
+a{
+color:white;
+text-decoration: none;
+}
+</style>

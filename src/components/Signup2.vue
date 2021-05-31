@@ -59,7 +59,7 @@ import axios from 'axios';
 import Alert from './Alert.vue';
 
 export default {
-  name: 'Login',
+  name: 'Signup2',
   data() {
     return {
       firstName: '',
@@ -109,9 +109,9 @@ export default {
       }).then((res) => {
         console.log(res);
         // set the local token
-        // localStorage.setItem('token', res.data.token);
+        localStorage.setItem('token', res.data.token);
         // redirect user to the home page
-        // this.$router.push({ name: 'Home' });
+        this.$router.push({ name: 'Home' });
       }).catch((error) => {
         console.error(error);
         this.message = 'Failed ! Please try again';
@@ -122,8 +122,14 @@ export default {
     alert: Alert,
   },
   created() {
-    console.log('creating');
-    this.$forceUpdate();
+    // console.log('creating');
+    // this.$forceUpdate();
   },
 };
 </script>
+<style >
+a{
+color:white;
+text-decoration: none;
+}
+</style>

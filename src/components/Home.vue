@@ -46,5 +46,8 @@ export default {
 };
 </script>
 <style >
-
+a{
+color:white;
+text-decoration: none;
+}
 </style>
