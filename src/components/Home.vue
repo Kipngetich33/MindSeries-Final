@@ -1,7 +1,13 @@
 <template>
-  <div>
-    <h3>Welcome {{logged_in_user}}</h3>
-    <button @click="logout">Logout</button>
+  <div id="wrapper">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <h3 class="center_align" >Welcome {{logged_in_user}}</h3>
+        <button class="center_align" @click="logout">Logout</button>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
   </div>
 </template>
 
@@ -39,3 +45,6 @@ export default {
   },
 };
 </script>
+<style >
+
+</style>

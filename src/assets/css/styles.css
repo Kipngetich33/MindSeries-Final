@@ -1,0 +1,38 @@
+#wrapper{
+    width: 100%;
+    height: 772px;
+    background-color: #152238;
+    color: white;
+    padding: 100px;;
+}
+.center_align{
+text-align: center;
+}
+#mind_series_heading_containter{
+padding: 15px;
+background-color:#0e1725;
+}
+#sign_in_form{
+margin-top: 100px;
+}
+.elements_space{
+margin-top:30px;
+}
+.action_button{
+background-color:#E89C31 ;
+color:white;
+padding:10px;
+}
+.floatright{
+float: right;
+}
+.floatleft{
+float: left;
+}
+a{
+color:white;
+text-decoration: none;
+}
+.bold{
+font-weight: bold;
+}
