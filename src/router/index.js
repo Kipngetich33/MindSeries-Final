@@ -7,6 +7,7 @@ import Signup from '../components/Signup.vue';
 import Signup2 from '../components/Signup2.vue';
 import Account from '../components/Account.vue';
 import Affirmations from '../components/Affirmations.vue';
+import ResetPassword from '../components/ResetPassword.vue';
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,11 @@ const routes = [
     path: '/affirmations',
     name: 'Affirmations',
     component: Affirmations,
+  },
+  {
+    path: '/reset_password',
+    name: 'ResetPassword',
+    component: ResetPassword,
   },
 ];
 

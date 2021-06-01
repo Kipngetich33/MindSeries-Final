@@ -6,7 +6,7 @@
     <!-- user bootstrap column grids to center the contents -->
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <a href="/" style="color:white;text-decoration: none;">
+      <a href="/" style="color:white;">
         <div id="mind_series_heading_containter">
           <!-- add a class center_align to center the text  -->
           <h1 class="center_align" id="mind_series_heading">
@@ -23,37 +23,46 @@
 
     <!-- add another row using bootstrap grids -->
     <!-- add another row using bootstrap grids -->
+    <!-- add another row using bootstrap grids -->
     <div class="row">
-      <!-- user bootstrap column grids to center the contents -->
-      <div class="col-md-4"></div>
-      <!-- only use the middle row for content -->
-      <div class="col-md-4">
-        <div class="center_align" id="sign_in_form">
-          <h1 class="elements_space" >Sign In</h1>
-          <alert :message="message" v-if="showMessage"></alert>
-          <!-- add the sign in form here -->
-          <input v-model="email" class="form-control form-control-lg elements_space" type="text" placeholder="Email/Username" aria-label=".form-control-lg example">
-          <input v-model="password" class="form-control form-control-lg elements_space" type="password" placeholder="Password" aria-label=".form-control-lg example">
-          <div class="d-grid gap-2">
-            <button class="btn form-control-lg elements_space action_button" @click="handleSubmit"
-            type="button" style="color:white;background-color:#E89C31;width:100%;font-weight:bold;">
-                SIGN IN
-            </button>
-          </div>
-          <div id="button_links" class="elements_space" >
-            <p>
-              <span class="floatleft">
-                <a href="/reset_password" style="color:white;">Forgot Password?</a>
-              </span>
-              <span class="floatright">
-                <a href="/signup" style="color:white;">Not a member yet?</a>
-              </span>
-            </p>
-          </div>
+        <div style="margin-top:60px;" class="elements_space">
+            <alert :message="message" v-if="showMessage"></alert><br>
+            <h1 style="margin-left: 530px;"  class="elements_space" >Reset Password</h1><br>
+            <p style="margin-left: 300px;" >Enter the email associated with your account and we'll send an email with instructions to reset your password.</p><br>
         </div>
-      </div>
-      <div class="col-md-4"></div>
     </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <!-- add the sign in form here -->
+            <input class="form-control form-control-lg" type="text" placeholder="Enter your email" aria-label=".form-control-lg example">
+            <div class="d-grid gap-2">
+                <button class="btn form-control-lg action_button bold elements_space"
+                type="button"
+                style="color:white;background-color:#E89C31;width:40%;font-weight:bold;margin-left:140px;">
+                RESET
+                </button>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+        <!-- user bootstrap column grids to center the contents -->
+        <!-- <div class="col-md-4"></div> -->
+        <!-- only use the middle row for content -->
+        <!-- <div class="col-md-4"> -->
+        <!-- <div class="center_align" id="sign_in_form"  style="margin-top:0px;"> -->
+            <!-- add the sign in form here -->
+            <!-- <input class="form-control form-control-lg elements_space" type="text" placeholder="Enter your email" aria-label=".form-control-lg example">
+            <div class="d-grid gap-2">
+                <button class="btn form-control-lg elements_space action_button bold" type="button"
+                style="margin-right:100px;margin-left:100px;">
+                RESET
+                </button>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-4"></div> -->
+    <!-- </div> -->
   </div>
 </template>
 
