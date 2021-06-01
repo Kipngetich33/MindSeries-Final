@@ -6,6 +6,7 @@ import Journal from '../components/Journal.vue';
 import Signup from '../components/Signup.vue';
 import Signup2 from '../components/Signup2.vue';
 import Account from '../components/Account.vue';
+import Affirmations from '../components/Affirmations.vue';
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/account',
     name: 'Account',
     component: Account,
+  },
+  {
+    path: '/affirmations',
+    name: 'Affirmations',
+    component: Affirmations,
   },
 ];
 
