@@ -47,7 +47,6 @@
     <!-- end of the logo section -->
     <!-- add another row using bootstrap grids -->
     <div class="row">
-      <alert :message="message" v-if="showMessage"></alert>
       <div class="col-md-7">
           <div class="col-auto elements_space" >
             <h2 >January 3 2021</h2>
@@ -62,7 +61,7 @@
             >
           </div>
           <div class="col-auto elements_space">
-            <input type="password" class="form-control " id="inputPassword2" placeholder="dd/mm/yyyy">
+            <input v-model="postingDate" type="text" class="form-control " id="inputPassword2" placeholder="dd/mm/yyyy">
           </div>
         </form>
       </div>
@@ -70,85 +69,92 @@
     <div class="row">
       <div class="col-md-10">
         <form style="margin-left:20px;">
+        <alert style="width:100%;" :message="message" v-if="showMessage"></alert>
         <h3 style="margin-top:20px;"> What are greatful for today</h3>
           <div class="input-group mb-3 elements_space">
-            <input type="text" class="form-control" placeholder="Recipient's username"
+            <input v-model="recipientUsername" type="text" class="form-control" placeholder="Recipient's username"
             aria-label="Recipient's username" aria-describedby="button-addon2"
             style="padding:20px;min-height:75px;">
           </div>
 
           <h3 style="margin-top:50px;"> What went well today and what could have been improved?</h3>
-          <textarea style="min-height:220px;" class="form-control" id="exampleFormControlTextarea1"
+          <textarea v-model="journal" style="min-height:220px;" class="form-control" id="exampleFormControlTextarea1"
           rows="3" placeholder="Type text..."></textarea>
         </form>
       </div>
       <div class="col-md-2">
-        <i style="margin-top:80px;font-size:75px;" class="far fa-save"></i><br>
-        <i style="margin-top:200px;font-size:75px;" class="far fa-save"></i>
+        <i @click="createJournal" style="margin-top:80px;font-size:75px;" class="far fa-save"></i><br>
+        <i @click="createJournal" style="margin-top:200px;font-size:75px;" class="far fa-save"></i>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 import Alert from './Alert.vue';
 
 export default {
   name: 'Login',
   data() {
     return {
-      firstName: '',
-      lastName: '',
-      email: '',
+      recipientUsername: '',
+      postingDate: '',
+      journal: '',
       showMessage: false,
       message: '',
     };
   },
   methods: {
-    // async updateUser() {
-    //   console.log('updating');
-    //   await axios.post('http://localhost:5000/update_user', {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //     },
-    //   }).then((res) => {
-    //     console.log('response');
-    //     console.log(res);
-    //     this.showMessage = true;
-    //     this.message = res.data.message;
-    //   }).catch((error) => {
-    //     console.log(error);
-    //     this.showMessage = true;
-    //     this.message = error;
-    //   });
-    // },
-    // async getMessage() {
-    //   await axios.get('http://localhost:5000/user', {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //     },
-    //   }).then((res) => {
-    //     // set local variables
-    //     this.firstName = res.data.firstName;
-    //     this.lastName = res.data.lastName;
-    //     this.email = res.data.email;
-    //   }).catch((error) => {
-    //     console.error(error);
-    //     this.logout();
-    //   });
-    // },
-    // logout() {
-    //   localStorage.setItem('token', '');
-    //   this.$router.push({ name: 'Login' });
-    // },
+    async getMessage() {
+      await axios.get('http://localhost:5000/user', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }).then((res) => {
+        this.username = res.data.username;
+      }).catch((error) => {
+        console.error(error);
+        this.logout();
+      });
+    },
+    logout() {
+      localStorage.setItem('token', '');
+      this.$router.push({ name: 'Login' });
+    },
+    async createJournal() {
+      // check that all values are given
+      if (this.recipientUsername && this.postingDate && this.journal) {
+        await axios.post('http://localhost:5000/create_journal', {
+          recipientUsername: this.recipientUsername,
+          postingDate: this.postingDate,
+          journal: this.journal,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        }).then((res) => {
+          console.log(res);
+          this.showMessage = true;
+          this.message = res.data.message;
+        // this.username = res.data.username;
+        }).catch((error) => {
+          console.error(error);
+          this.logout();
+        });
+      } else {
+        this.showMessage = true;
+        this.message = 'All fields are required';
+      }
+    },
   },
   components: {
     alert: Alert,
   },
   created() {
     // check that user is logged in
-    // this.getMessage();
+    this.getMessage();
   },
 };
 </script>

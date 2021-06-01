@@ -47,76 +47,81 @@
     <!-- end of the logo section -->
     <!-- add another row using bootstrap grids -->
     <div class="row" style="padding:20px;">
-      <alert :message="message" v-if="showMessage"></alert>
+      <alert style="margin:20px;" :message="message" v-if="showMessage"></alert>
       <div class="elements_space" >
         <h2 style="margin:20px;">Reminder</h2>
         <p style="margin:20px;">You are on track its literally playing out how its supposed to. Watch and see exactly
           how it all comes together</p>
         <p style="margin:20px;">________________________________________________________________________________________________________________________________________________</p>
+        <!-- here are the journals -->
+        <div style="margin:20px;" v-for="journal in journalList" :key="journal.index">
+          <h3 style="color:#E89C31;">Date :{{journal.postingDate}}</h3>
+          <p>{{journal.journal}}</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 import Alert from './Alert.vue';
 
 export default {
   name: 'Login',
   data() {
     return {
-      firstName: '',
-      lastName: '',
-      email: '',
-      showMessage: false,
-      message: '',
+      userName: '',
+      showMessage: '',
+      journalList: [],
     };
   },
   methods: {
-    // async updateUser() {
-    //   console.log('updating');
-    //   await axios.post('http://localhost:5000/update_user', {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //     },
-    //   }).then((res) => {
-    //     console.log('response');
-    //     console.log(res);
-    //     this.showMessage = true;
-    //     this.message = res.data.message;
-    //   }).catch((error) => {
-    //     console.log(error);
-    //     this.showMessage = true;
-    //     this.message = error;
-    //   });
-    // },
-    // async getMessage() {
-    //   await axios.get('http://localhost:5000/user', {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //     },
-    //   }).then((res) => {
-    //     // set local variables
-    //     this.firstName = res.data.firstName;
-    //     this.lastName = res.data.lastName;
-    //     this.email = res.data.email;
-    //   }).catch((error) => {
-    //     console.error(error);
-    //     this.logout();
-    //   });
-    // },
-    // logout() {
-    //   localStorage.setItem('token', '');
-    //   this.$router.push({ name: 'Login' });
-    // },
+    async getJournals() {
+      await axios.post('http://localhost:5000/get_journals', {
+        userName: this.userName,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      }).then((res) => {
+        this.showMessage = true;
+        this.message = res.data.message;
+        this.journalList = res.data.journal_list;
+      }).catch((error) => {
+        console.log(error);
+        this.showMessage = true;
+        this.message = error;
+      });
+    },
+    async getMessage() {
+      await axios.get('http://localhost:5000/user', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }).then((res) => {
+        console.log(res);
+        // set local variables
+        this.userName = res.data.username;
+        // now get all journals
+        this.getJournals();
+      }).catch((error) => {
+        console.error(error);
+        this.logout();
+      });
+    },
+    logout() {
+      localStorage.setItem('token', '');
+      this.$router.push({ name: 'Login' });
+    },
   },
   components: {
     alert: Alert,
   },
   created() {
     // check that user is logged in
-    // this.getMessage();
+    this.getMessage();
   },
 };
 </script>
