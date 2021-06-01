@@ -75,8 +75,13 @@ export default {
     async updateUser() {
       console.log('updating');
       await axios.post('http://localhost:5000/update_user', {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
       }).then((res) => {
         console.log('response');
