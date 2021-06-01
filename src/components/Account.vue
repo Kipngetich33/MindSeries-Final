@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable max-len -->
-  <div id="wrapper" >
+  <div id="wrapper" style="padding-top: 0px;">
     <!-- top section with logo -->
     <div class="row">
         <!-- user bootstrap column grids to center the contents -->
@@ -72,27 +72,9 @@ export default {
     };
   },
   methods: {
-    async getUserDetails() {
-      const path = 'http://localhost:5000/user';
-      axios.get(path, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      }).then((res) => {
-        // set local variables
-        this.firstName = res.data.firstName;
-        this.lastName = res.data.lastName;
-        this.email = res.data.email;
-      }).catch((error) => {
-        console.log(error);
-        this.showMessage = true;
-        this.message = error;
-      });
-    },
     async updateUser() {
       console.log('updating');
-      const path = 'http://localhost:5000/update_user';
-      axios.post(path, {
+      await axios.post('http://localhost:5000/update_user', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -107,13 +89,32 @@ export default {
         this.message = error;
       });
     },
+    async getMessage() {
+      await axios.get('http://localhost:5000/user', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }).then((res) => {
+        // set local variables
+        this.firstName = res.data.firstName;
+        this.lastName = res.data.lastName;
+        this.email = res.data.email;
+      }).catch((error) => {
+        console.error(error);
+        this.logout();
+      });
+    },
+    logout() {
+      localStorage.setItem('token', '');
+      this.$router.push({ name: 'Login' });
+    },
   },
   components: {
     alert: Alert,
   },
   created() {
-    // call the get details function
-    this.getUserDetails();
+    // check that user is logged in
+    this.getMessage();
   },
 };
 </script>
@@ -121,9 +122,6 @@ export default {
 a{
 color:white;
 text-decoration: none;
-}
-#wrapper{
-    padding-top: 0px;
 }
 .action_button{
 background-color:#E89C31 ;
