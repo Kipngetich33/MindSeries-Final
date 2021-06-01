@@ -22,11 +22,9 @@
     <!-- end of the logo section -->
 
     <!-- add another row using bootstrap grids -->
-    <!-- add another row using bootstrap grids -->
-    <!-- add another row using bootstrap grids -->
     <div class="row">
         <div style="margin-top:60px;" class="elements_space">
-            <alert :message="message" v-if="showMessage"></alert><br>
+            <alert style="margin-left: 300px;" :message="message" v-if="showMessage"></alert><br>
             <h1 style="margin-left: 530px;"  class="elements_space" >Reset Password</h1><br>
             <p style="margin-left: 300px;" >Enter the email associated with your account and we'll send an email with instructions to reset your password.</p><br>
         </div>
@@ -35,9 +33,9 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <!-- add the sign in form here -->
-            <input class="form-control form-control-lg" type="text" placeholder="Enter your email" aria-label=".form-control-lg example">
+            <input v-model="email" class="form-control form-control-lg" type="text" placeholder="Enter your email" aria-label=".form-control-lg example">
             <div class="d-grid gap-2">
-                <button class="btn form-control-lg action_button bold elements_space"
+                <button @click="resetPassword" class="btn form-control-lg action_button bold elements_space"
                 type="button"
                 style="color:white;background-color:#E89C31;width:40%;font-weight:bold;margin-left:140px;">
                 RESET
@@ -46,23 +44,6 @@
         </div>
         <div class="col-md-4"></div>
     </div>
-        <!-- user bootstrap column grids to center the contents -->
-        <!-- <div class="col-md-4"></div> -->
-        <!-- only use the middle row for content -->
-        <!-- <div class="col-md-4"> -->
-        <!-- <div class="center_align" id="sign_in_form"  style="margin-top:0px;"> -->
-            <!-- add the sign in form here -->
-            <!-- <input class="form-control form-control-lg elements_space" type="text" placeholder="Enter your email" aria-label=".form-control-lg example">
-            <div class="d-grid gap-2">
-                <button class="btn form-control-lg elements_space action_button bold" type="button"
-                style="margin-right:100px;margin-left:100px;">
-                RESET
-                </button>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-4"></div> -->
-    <!-- </div> -->
   </div>
 </template>
 
@@ -75,47 +56,23 @@ export default {
   data() {
     return {
       email: '',
-      password: '',
       showMessage: false,
       message: '',
     };
   },
   methods: {
-    handleSubmit() {
-      // call the create user function
-      this.login();
-
-      // clear the form
-      // this.firstName = '';
-      // this.lastName = '';
-      // this.userName = '';
-      // now redirect to second signup page
-      // this.$router.push({ name: 'Singup2' });
-    },
-    async login() {
-      const path = 'http://localhost:5000/login';
+    async resetPassword() {
+      const path = 'http://localhost:5000/reset_password';
       axios.post(path, {
         email: this.email,
-        password: this.password,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
       }).then((res) => {
         console.log(res);
-        // set the local token
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('firstName', res.data.firstName);
-        localStorage.setItem('lastName', res.data.lastName);
-        localStorage.setItem('email', res.data.email);
-        localStorage.setItem('username', res.data.username);
-        // redirect user to the home page
-        this.$router.push({ name: 'Home' });
+        this.showMessage = true;
+        this.message = 'Reset instruction have been sent to your email';
       }).catch((error) => {
         console.log(error);
         this.showMessage = true;
-        this.message = 'Incorrect Username/Password';
+        this.message = 'Reset failed, please try again';
       });
     },
   },
@@ -123,8 +80,6 @@ export default {
     alert: Alert,
   },
   created() {
-    // console.log('creating');
-    // this.$forceUpdate();
   },
 };
 </script>
