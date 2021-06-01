@@ -97,6 +97,10 @@ export default {
         console.log(res);
         // set the local token
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('firstName', res.data.firstName);
+        localStorage.setItem('lastName', res.data.lastName);
+        localStorage.setItem('email', res.data.email);
+        localStorage.setItem('username', res.data.username);
         // redirect user to the home page
         this.$router.push({ name: 'Home' });
       }).catch((error) => {

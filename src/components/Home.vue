@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <h3 class="center_align" >Welcome {{logged_in_user}}</h3>
+        <h3 class="center_align" >Welcome {{username}}</h3>
         <button class="center_align" @click="logout">Logout</button>
       </div>
       <div class="col-md-4"></div>
@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       msg: '',
-      logged_in_user: '',
+      username: '',
     };
   },
   methods: {
@@ -29,7 +29,7 @@ export default {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       }).then((res) => {
-        this.logged_in_user = res.data.user;
+        this.username = res.data.username;
       }).catch((error) => {
         console.error(error);
         this.logout();
