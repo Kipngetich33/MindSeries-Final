@@ -6,7 +6,7 @@
     <!-- user bootstrap column grids to center the contents -->
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <a href="/">
+      <a style="color:white;" href="/">
         <div id="mind_series_heading_containter">
           <!-- add a class center_align to center the text  -->
           <h1 class="center_align" id="mind_series_heading">

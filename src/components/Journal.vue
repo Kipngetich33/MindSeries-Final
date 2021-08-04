@@ -31,7 +31,7 @@
               </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/logout">
+              <a @click="logout" class="nav-link" >
                   <h3 style="color:white;">
                       <i class="fas fa-power-off" style="font-size:35px;"></i>
                       &nbsp;Sign Out
@@ -49,7 +49,7 @@
     <div class="row">
       <div class="col-md-7">
           <div class="col-auto elements_space" >
-            <h2 >January 3 2021</h2>
+            <h2>{{fullDate}}</h2>
           </div>
       </div>
       <div class="col-md-5" >
@@ -103,6 +103,7 @@ export default {
       journal: '',
       showMessage: false,
       message: '',
+      currentDate: '',
     };
   },
   methods: {
@@ -135,10 +136,12 @@ export default {
             'Access-Control-Allow-Origin': '*',
           },
         }).then((res) => {
-          console.log(res);
           this.showMessage = true;
           this.message = res.data.message;
-        // this.username = res.data.username;
+          // now clear the fields
+          this.postingDate = '';
+          this.recipientUsername = '';
+          this.journal = '';
         }).catch((error) => {
           console.error(error);
           this.logout();
@@ -155,6 +158,15 @@ export default {
   created() {
     // check that user is logged in
     this.getMessage();
+    // add correct date to page
+    const currentDateTime = new Date();
+    this.date = currentDateTime.getDate();
+    const months = ['January', 'February', 'March',
+      'April', 'May', 'June', 'July', 'August', 'September',
+      'October', 'November', 'December'];
+    this.month = currentDateTime.getMonth();
+    this.year = currentDateTime.getFullYear();
+    this.fullDate = `${this.date} ${months[this.month]} ${this.year}`;
   },
 };
 </script>

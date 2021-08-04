@@ -6,7 +6,7 @@
     <!-- user bootstrap column grids to center the contents -->
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <a href="/">
+      <a style="color:white;" href="/">
         <div id="mind_series_heading_containter">
           <!-- add a class center_align to center the text  -->
           <h1 class="center_align" id="mind_series_heading">
@@ -85,13 +85,6 @@ export default {
       console.log(localStorage.getItem('firstName'));
       // call the create user function
       this.createUser();
-
-      // clear the form
-      // this.firstName = '';
-      // this.lastName = '';
-      // this.userName = '';
-      // now redirect to second signup page
-      // this.$router.push({ name: 'Singup2' });
     },
     async createUser() {
       const path = 'http://localhost:5000/create_user';
@@ -111,7 +104,7 @@ export default {
         // set the local token
         localStorage.setItem('token', res.data.token);
         // redirect user to the home page
-        this.$router.push({ name: 'Home' });
+        this.$router.push({ name: 'Affirmations' });
       }).catch((error) => {
         console.error(error);
         this.message = 'Failed ! Please try again';

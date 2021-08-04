@@ -75,13 +75,6 @@ export default {
     handleSubmit() {
       // call the create user function
       this.login();
-
-      // clear the form
-      // this.firstName = '';
-      // this.lastName = '';
-      // this.userName = '';
-      // now redirect to second signup page
-      // this.$router.push({ name: 'Singup2' });
     },
     async login() {
       const path = 'http://localhost:5000/login';
@@ -102,7 +95,7 @@ export default {
         localStorage.setItem('email', res.data.email);
         localStorage.setItem('username', res.data.username);
         // redirect user to the home page
-        this.$router.push({ name: 'Home' });
+        this.$router.push({ name: 'Affirmations' });
       }).catch((error) => {
         console.log(error);
         this.showMessage = true;

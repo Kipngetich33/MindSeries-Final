@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../components/Home.vue';
 import Login from '../components/Login.vue';
 import Journal from '../components/Journal.vue';
 import Signup from '../components/Signup.vue';
@@ -14,8 +13,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Affirmations',
+    component: Affirmations,
   },
   {
     path: '/login',
@@ -41,11 +40,6 @@ const routes = [
     path: '/account',
     name: 'Account',
     component: Account,
-  },
-  {
-    path: '/affirmations',
-    name: 'Affirmations',
-    component: Affirmations,
   },
   {
     path: '/reset_password',

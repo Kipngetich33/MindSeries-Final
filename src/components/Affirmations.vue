@@ -31,7 +31,7 @@
             </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="/logout">
+              <a  @click="logout" class="nav-link" >
                   <h3 style="color:white;">
                       <i class="fas fa-power-off" style="font-size:35px;"></i>
                       &nbsp;Sign Out
